@@ -14,6 +14,12 @@ def set_next_frame_timer(index=ANIM_EVENT_INDEX, parent=None, delay=100):
     pg.time.set_timer(pg.Event(index, parent=parent), delay, loops=1)
 
 
+def update_animations(event: pg.Event):
+    if event.type == ANIM_EVENT_INDEX:
+        event.parent.update_frame()
+        set_next_frame_timer(delay=event.parent.frame_duration, parent=event.parent)
+
+
 def load_animation_config(folder_path: str):
     with open(f"{folder_path}animConfig.json", "r") as fp:
         return json.load(fp)
